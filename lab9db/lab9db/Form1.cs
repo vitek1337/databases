@@ -21,8 +21,7 @@ namespace lab9db
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // для отладки покажем, к чему мы подключаемся
-            MessageBox.Show(cfg, "ConnectionString");
+
         }
 
         private void button1_Click(object sender, EventArgs e)
