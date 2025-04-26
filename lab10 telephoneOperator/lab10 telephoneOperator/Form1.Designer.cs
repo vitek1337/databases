@@ -44,19 +44,28 @@
             this.surnameTextBox = new System.Windows.Forms.TextBox();
             this.surnameLabel = new System.Windows.Forms.Label();
             this.clientData = new System.Windows.Forms.DataGridView();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.generateReport = new System.Windows.Forms.Button();
+            this.updateTable = new System.Windows.Forms.Button();
+            this.reportInformation = new System.Windows.Forms.DataGridView();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tabControl1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clientData)).BeginInit();
+            this.tabPage1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.reportInformation)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
             // 
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(987, 450);
+            this.tabControl1.Size = new System.Drawing.Size(1617, 450);
             this.tabControl1.TabIndex = 0;
             // 
             // tabPage2
@@ -78,9 +87,9 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(979, 424);
+            this.tabPage2.Size = new System.Drawing.Size(1609, 424);
             this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
+            this.tabPage2.Text = "clientIfo";
             this.tabPage2.UseVisualStyleBackColor = true;
             this.tabPage2.Click += new System.EventHandler(this.tabPage2_Click);
             // 
@@ -202,14 +211,64 @@
             this.clientData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.clientData.Location = new System.Drawing.Point(246, 6);
             this.clientData.Name = "clientData";
-            this.clientData.Size = new System.Drawing.Size(725, 412);
+            this.clientData.Size = new System.Drawing.Size(1355, 412);
             this.clientData.TabIndex = 0;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.generateReport);
+            this.tabPage1.Controls.Add(this.updateTable);
+            this.tabPage1.Controls.Add(this.reportInformation);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Size = new System.Drawing.Size(1609, 424);
+            this.tabPage1.TabIndex = 2;
+            this.tabPage1.Text = "Report";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            this.tabPage1.Click += new System.EventHandler(this.tabPage1_Click);
+            // 
+            // generateReport
+            // 
+            this.generateReport.Location = new System.Drawing.Point(8, 216);
+            this.generateReport.Name = "generateReport";
+            this.generateReport.Size = new System.Drawing.Size(270, 38);
+            this.generateReport.TabIndex = 2;
+            this.generateReport.Text = "Создать отчет";
+            this.generateReport.UseVisualStyleBackColor = true;
+            this.generateReport.Click += new System.EventHandler(this.button2_Click_1);
+            // 
+            // updateTable
+            // 
+            this.updateTable.Location = new System.Drawing.Point(8, 121);
+            this.updateTable.Name = "updateTable";
+            this.updateTable.Size = new System.Drawing.Size(270, 38);
+            this.updateTable.TabIndex = 1;
+            this.updateTable.Text = "Обновить данные в таблице";
+            this.updateTable.UseVisualStyleBackColor = true;
+            this.updateTable.Click += new System.EventHandler(this.updateTable_Click);
+            // 
+            // reportInformation
+            // 
+            this.reportInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.reportInformation.Location = new System.Drawing.Point(284, 3);
+            this.reportInformation.Name = "reportInformation";
+            this.reportInformation.Size = new System.Drawing.Size(1317, 413);
+            this.reportInformation.TabIndex = 0;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(979, 424);
+            this.tabPage3.TabIndex = 3;
+            this.tabPage3.Text = "tabPage3";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(987, 450);
+            this.ClientSize = new System.Drawing.Size(1617, 450);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form1";
             this.Text = "Form1";
@@ -217,6 +276,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clientData)).EndInit();
+            this.tabPage1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.reportInformation)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -239,6 +300,11 @@
         private System.Windows.Forms.Button DeleteEntry;
         private System.Windows.Forms.Button ChangeEntry;
         private System.Windows.Forms.Button addEntry;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Button generateReport;
+        private System.Windows.Forms.Button updateTable;
+        private System.Windows.Forms.DataGridView reportInformation;
     }
 }
 

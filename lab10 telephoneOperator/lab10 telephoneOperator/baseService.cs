@@ -77,5 +77,15 @@ namespace lab10_telephoneOperator
             connection.Close();
             return adapter;
         }
+
+        public SqlDataAdapter setReportData()
+        {
+            connection.Open();
+            adapter = new SqlDataAdapter(
+                "SELECT \r\n    c.clientId,\r\n    c.clientSurname,\r\n    c.clientName,\r\n    c.clientLastName,\r\n    c.communicationWay,\r\n    c.communicationComment,\r\n    COUNT(con.contractId) AS numberOfContracts,\r\n    SUM(pp.planPricePerMonth) AS totalSpent\r\nFROM client c\r\nLEFT JOIN contract con ON c.clientId = con.clientIdFk\r\nLEFT JOIN pricingPlans pp ON con.pricingPlanIdFk = pp.pricingPlanId\r\nGROUP BY \r\n    c.clientId, c.clientSurname, c.clientName, c.clientLastName, \r\n    c.communicationWay, c.communicationComment\r\n", connection
+                );
+            connection.Close();
+            return adapter;
+        }
     }
 }

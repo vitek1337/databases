@@ -17,6 +17,7 @@ namespace lab10_telephoneOperator
     {
         private SqlConnection connection;
         SqlDataAdapter adapter;
+        SqlDataAdapter adapter2;
         BaseServices client;
 
         List<string> communicationWay = new List<string>();
@@ -45,6 +46,58 @@ namespace lab10_telephoneOperator
             adapter = client.dataToGrid();
             adapter.Fill(dt);
             clientData.DataSource = dt;
+            clientData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void updateReportTable()
+        {
+            DataTable dt = new DataTable();
+            adapter2 = client.setReportData();
+            adapter2.Fill(dt);
+            reportInformation.DataSource = dt;
+            reportInformation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        public void ExportExcel(DataGridView dataGrid)
+        {
+            Microsoft.Office.Interop.Excel._Application app = new Microsoft.Office.Interop.Excel.Application();
+
+            // создаем новый WorkBook
+            Microsoft.Office.Interop.Excel.Workbook workbook = app.Workbooks.Add(Type.Missing);
+
+            // новый ExcelSheet в workbook
+            Microsoft.Office.Interop.Excel.Worksheet worksheet = null;
+            app.Visible = true;
+            worksheet = (Microsoft.Office.Interop.Excel.Worksheet)workbook.Sheets[1];
+            worksheet = workbook.ActiveSheet;
+
+            // задаем имя для worksheet
+            worksheet.Name = "Exported from gridView";
+
+            for (int i = 1; i < dataGrid.Columns.Count + 1; i++)
+            {
+                worksheet.Cells[1, i] = dataGrid.Columns[i - 1].HeaderText;
+            }
+
+            for (int i = 0; i < dataGrid.Rows.Count - 1; i++)
+            {
+                for (int j = 0; j < dataGrid.Columns.Count; j++)
+                {
+                    worksheet.Cells[i + 2, j + 1] = dataGrid.Rows[i].Cells[j].Value.ToString();
+                }
+            }
+
+            // сохраняем
+            string folderPath = @"C:\Output";
+
+            if (!System.IO.Directory.Exists(folderPath))
+            {
+                System.IO.Directory.CreateDirectory(folderPath);
+            }
+
+            workbook.SaveAs(System.IO.Path.Combine(folderPath, "Output.xls"), Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
+            // закрываем подключение к excel
+            app.Quit();
         }
 
 
@@ -96,6 +149,21 @@ namespace lab10_telephoneOperator
             if (communicationComboBox.SelectedIndex == 0) communicationLabel.Text = "Номер телефона";
             else if (communicationComboBox.SelectedIndex == 1) communicationLabel.Text = "Меил";
             else if (communicationComboBox.SelectedIndex == 2) communicationLabel.Text = "Ссылка";
+        }
+
+        private void tabPage1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button2_Click_1(object sender, EventArgs e)
+        {
+            ExportExcel(reportInformation);
+        }
+
+        private void updateTable_Click(object sender, EventArgs e)
+        {
+            updateReportTable();
         }
     }
 }
