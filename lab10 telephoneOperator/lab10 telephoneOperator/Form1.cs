@@ -18,6 +18,8 @@ namespace lab10_telephoneOperator
         private SqlConnection connection;
         SqlDataAdapter adapter;
         SqlDataAdapter adapter2;
+        SqlDataAdapter adapter3;
+        SqlDataAdapter adapter4;
         BaseServices client;
 
         List<string> communicationWay = new List<string>();
@@ -28,16 +30,26 @@ namespace lab10_telephoneOperator
             communicationWay.Add("Номер телефона");
             communicationWay.Add("Меил");
             communicationWay.Add("Ссылка");
-            fillComboBox();
             client = new BaseServices();
             initiateClient();
+            updateContractTable();
+            updatePlaneTable();
+            fillComboBox();
         }
 
         public void fillComboBox()
         {
+
+            List<string> planNames = client.fillPlansArray();
             for (int i = 0; i < communicationWay.Count; i++)
             {
                 communicationComboBox.Items.Add(communicationWay[i]);
+                communicationComboBox2.Items.Add(communicationWay[i]);
+            }
+
+            for (int i = 0; i < planNames.Count; i++)
+            {
+                planComboBox.Items.Add(planNames[i]);
             }
         }
         private void initiateClient()
@@ -56,6 +68,24 @@ namespace lab10_telephoneOperator
             adapter2.Fill(dt);
             reportInformation.DataSource = dt;
             reportInformation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void updateContractTable()
+        {
+            DataTable dt = new DataTable();
+            adapter3 = client.setContractDataTable();
+            adapter3.Fill(dt);
+            contractTable.DataSource = dt;
+            contractTable.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void updatePlaneTable()
+        {
+            DataTable dt = new DataTable();
+            adapter4 = client.setPlaneData();
+            adapter4.Fill(dt);
+            planeGrid.DataSource = dt;
+            planeGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
         public void ExportExcel(DataGridView dataGrid)
@@ -144,6 +174,15 @@ namespace lab10_telephoneOperator
             return int.Parse(clientData.SelectedRows[0].Cells[0].Value.ToString());
         }
 
+        public int getIdClientFromContract()
+        {
+            return int.Parse(contractTable.SelectedRows[0].Cells[0].Value.ToString());
+        }
+
+        public int getIdContractId() {
+            return int.Parse(contractTable.SelectedRows[0].Cells[6].Value.ToString());
+        }
+
         private void communicationComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (communicationComboBox.SelectedIndex == 0) communicationLabel.Text = "Номер телефона";
@@ -163,7 +202,204 @@ namespace lab10_telephoneOperator
 
         private void updateTable_Click(object sender, EventArgs e)
         {
-            updateReportTable();
+    
+            //try
+            //{
+                updateReportTable();
+                MessageBox.Show("Строка изменена успешно!");
+            //}
+            //catch { MessageBox.Show("Возникла ошибка при изменнии строки"); }
+            updateContractTable();
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.deleteContractData(getIdContractId());
+                MessageBox.Show("Строка удалена успешно!");
+            }
+            catch { MessageBox.Show("Возникла ошибка при удалении строки"); }
+            updateContractTable();
+        }
+
+        private void button2_Click_2(object sender, EventArgs e)
+        {
+            try
+            {
+                client.changeContractData(surnameTextBox2.Text, nameTextBox2.Text, lastnameTextBox2.Text, communicationComboBox2.SelectedItem.ToString(), phone2.Text, planComboBox.SelectedItem.ToString(), (int)planLong.Value, getIdClientFromContract(), getIdContractId());
+                MessageBox.Show("Строка изменена успешно!");
+            }
+            catch { MessageBox.Show("Возникла ошибка при изменнии строки"); }
+            updateContractTable();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.setContractData(surnameTextBox2.Text, nameTextBox2.Text, lastnameTextBox2.Text, communicationComboBox2.SelectedItem.ToString(), phone2.Text, planComboBox.SelectedItem.ToString(), (int) planLong.Value);
+                MessageBox.Show("Запись добавлена успешно!");
+            }
+            catch { MessageBox.Show("Возникла ошибка при добавлении записи"); }
+            updateContractTable();
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.deletePlaneData(getPlanId());
+                updatePlaneTable();
+                MessageBox.Show("Запись Удалена успешно!");
+            }
+            catch { MessageBox.Show("Возникла ошибка при удалении записи!"); };
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            try { 
+                client.changePlaneData(planNameTextBox.Text, planCommentTextBox.Text, int.Parse(pricePerMonth.Text), int.Parse(pricePerYear.Text), getPlanId());
+                updatePlaneTable();
+                MessageBox.Show("Запись изменена успешно!");
+            }
+            catch { MessageBox.Show("Возникла ошибка при изменении записи!"); };
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                client.addPlaneData(planNameTextBox.Text, planCommentTextBox.Text, int.Parse(pricePerMonth.Text), int.Parse(pricePerYear.Text));
+                updatePlaneTable();
+                MessageBox.Show("Запись добавлена успешно!");
+            }
+            catch { MessageBox.Show("Запись добавлена успешно!"); };
+        }
+
+        private int getPlanId()
+        {
+            return int.Parse(planeGrid.SelectedRows[0].Cells[0].Value.ToString());
+        }
+
+        private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox5_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label8_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox7_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox8_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void service_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
