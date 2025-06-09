@@ -10,16 +10,18 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Word = Microsoft.Office.Interop.Word;
 
 namespace lab10_telephoneOperator
 {
     public partial class Form1 : Form
     {
-        private SqlConnection connection;
         SqlDataAdapter adapter;
         SqlDataAdapter adapter2;
         SqlDataAdapter adapter3;
         SqlDataAdapter adapter4;
+        SqlDataAdapter adapter5;
         BaseServices client;
 
         List<string> communicationWay = new List<string>();
@@ -35,6 +37,12 @@ namespace lab10_telephoneOperator
             updateContractTable();
             updatePlaneTable();
             fillComboBox();
+            trackBar1.Minimum = 18;
+            trackBar1.Maximum = 100;
+            trackBar1.SmallChange = 1;
+            trackBar1.LargeChange = 5; // например, для клавиш PgUp/PgDn
+            trackBar1.TickFrequency = 1; // как часто рисуются деления
+            trackBar1.Value = 18; // нача
         }
 
         public void fillComboBox()
@@ -61,10 +69,20 @@ namespace lab10_telephoneOperator
             clientData.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
 
-        private void updateReportTable()
+        private void updateForWord()
         {
             DataTable dt = new DataTable();
-            adapter2 = client.setReportData();
+            adapter5 = client.LoadReportInfo();
+            adapter5.Fill(dt);
+            reportInformation.DataSource = dt;
+            reportInformation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+        }
+
+        private void updateReportTable()
+        {
+            int age = trackBar1.Value;
+            DataTable dt = new DataTable();
+            adapter2 = client.setReportData(age);
             adapter2.Fill(dt);
             reportInformation.DataSource = dt;
             reportInformation.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
@@ -125,8 +143,11 @@ namespace lab10_telephoneOperator
                 System.IO.Directory.CreateDirectory(folderPath);
             }
 
+            try { 
             workbook.SaveAs(System.IO.Path.Combine(folderPath, "Output.xls"), Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Microsoft.Office.Interop.Excel.XlSaveAsAccessMode.xlExclusive, Type.Missing, Type.Missing, Type.Missing, Type.Missing, Type.Missing);
-            // закрываем подключение к excel
+                // закрываем подключение к excel
+            }
+            catch { }
             app.Quit();
         }
 
@@ -400,6 +421,66 @@ namespace lab10_telephoneOperator
         private void service_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void reportInformation_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            label6.Text = $"Возраст клиента до : {trackBar1.Value}";
+            updateReportTable();
+        }
+
+        private void button5_Click_1(object sender, EventArgs e)
+        {
+            updateForWord();
+        }
+
+        private void ExportDataTableToWord(DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных для экспорта.");
+                return;
+            }
+
+            var wordApp = new Microsoft.Office.Interop.Word.Application();
+            wordApp.Visible = true;
+
+            var doc = wordApp.Documents.Add();
+            var para = doc.Content.Paragraphs.Add();
+            para.Range.Text = "Отчет по заключенным договорам";
+            para.Range.InsertParagraphAfter();
+
+            var table = doc.Tables.Add(doc.Bookmarks.get_Item("\\endofdoc").Range,
+                                       dataTable.Rows.Count + 1, dataTable.Columns.Count);
+            table.Borders.Enable = 1;
+
+            // Заголовки
+            for (int i = 0; i < dataTable.Columns.Count; i++)
+            {
+                table.Cell(1, i + 1).Range.Text = dataTable.Columns[i].ColumnName;
+                table.Cell(1, i + 1).Range.Bold = 1;
+            }
+
+            // Данные
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                for (int j = 0; j < dataTable.Columns.Count; j++)
+                {
+                    table.Cell(i + 2, j + 1).Range.Text = dataTable.Rows[i][j]?.ToString();
+                }
+            }
+        }
+
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            var dt = reportInformation.DataSource as DataTable;
+            ExportDataTableToWord(dt);
         }
     }
 }

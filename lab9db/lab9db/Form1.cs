@@ -9,7 +9,6 @@ namespace lab9db
 {
     public partial class Form1 : Form
     {
-        // читаем вашу строку подключения
         private readonly string cfg = ConfigurationManager
                                         .ConnectionStrings["DefaultConnection"]
                                         .ConnectionString;
@@ -25,8 +24,8 @@ namespace lab9db
         }
 
         private void button1_Click(object sender, EventArgs e)
-        {   
-            CreateDatabase(textBox1.Text.Trim());
+        {
+            CreateDatabaseTable(textBox1.Text.Trim(), tableName.Text.Trim());
         }
 
         private void addColumn() {
@@ -61,31 +60,38 @@ namespace lab9db
             catch { MessageBox.Show("Возникла ошибка при удалении столбца"); }
 }
 
-        private void CreateDatabase(string dbName)
+        private void CreateDatabaseTable(string dbName, string tableName)
         {
-            if (string.IsNullOrWhiteSpace(dbName))
+            if (string.IsNullOrWhiteSpace(dbName) || string.IsNullOrWhiteSpace(tableName))
             {
-                MessageBox.Show("Введите имя базы данных");
+                MessageBox.Show("Введите имя базы данных и имя таблицы");
                 return;
             }
 
-
+            // Простая схема таблицы
             string sql = $@"
-                IF NOT EXISTS (SELECT name 
-                               FROM sys.databases 
-                               WHERE name = @dbName)
-                BEGIN
-                   EXEC('CREATE DATABASE [' + @dbName + ']');
-                END";
+        USE [{dbName}];
+        CREATE TABLE [{tableName}] (
+            Id INT PRIMARY KEY IDENTITY(1,1),
+        );
+    ";
 
-            using (SqlConnection connection = new SqlConnection(cfg))
+            try
             {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(sql, connection);
-                cmd.Parameters.AddWithValue("@dbName", dbName);
-                cmd.ExecuteNonQuery();
+                using (SqlConnection connection = new SqlConnection(cfg))
+                {
+                    connection.Open();
+                    SqlCommand cmd = new SqlCommand(sql, connection);
+                    cmd.ExecuteNonQuery();
+                    MessageBox.Show($"Таблица [{tableName}] успешно создана в базе данных [{dbName}].");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Ошибка при создании таблицы: " + ex.Message);
             }
         }
+
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {

@@ -1,13 +1,18 @@
-﻿using System;
+﻿using Microsoft.Office.Interop.Excel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Word = Microsoft.Office.Interop.Word;
+
 
 namespace lab10_telephoneOperator
 {
@@ -120,6 +125,29 @@ namespace lab10_telephoneOperator
             cmd.ExecuteNonQuery();
             connection.Close();
         }
+
+        public SqlDataAdapter LoadReportInfo()
+        {
+            string query = @"
+        SELECT 
+            c.clientSurname + ' ' + c.clientName + ' ' + c.clientLastName AS [ФИО клиента],
+            c.communicationWay AS [Способ связи],
+            p.planName AS [Название тарифа],
+            p.planPricePerMonth AS [Цена/мес],
+            p.planPricePerYear AS [Цена/год],
+            ct.contractLong AS [Длительность (мес)],
+            CAST('2024-01-01' AS DATE) AS [Дата заключения]
+        FROM contract ct
+        JOIN client c ON c.clientId = ct.clientIdFk
+        JOIN pricingPlans p ON p.pricingPlanId = ct.pricingPlanIdFk";
+
+            SqlConnection conn = new SqlConnection(sql);
+            SqlDataAdapter adapter = new SqlDataAdapter(query, conn);
+            return adapter;
+        }
+
+
+
 
         public void deletePlaneData(int planId) {
             connection.Open();
@@ -234,22 +262,32 @@ namespace lab10_telephoneOperator
             return planNames;
         }
 
-        public SqlDataAdapter setReportData()
+        public SqlDataAdapter setReportData(int age)
         {
-            connection.Open();
-            adapter = new SqlDataAdapter(
-                "SELECT pricingPlans.planName AS PlanName, COUNT(DISTINCT contract.clientIdFk) AS ClientCount, " +
-                "ISNULL(SUM((contract.contractLong / 12) * pricingPlans.planPricePerYear + " +
-                "(contract.contractLong % 12) * pricingPlans.planPricePerMonth), 0) AS TotalRevenue " +
-                "FROM pricingPlans " +
-                "LEFT JOIN contract ON pricingPlans.pricingPlanId = contract.pricingPlanIdFk " +
-                "GROUP BY pricingPlans.planName, pricingPlans.pricingPlanId " +
-                "ORDER BY pricingPlans.pricingPlanId",
-            connection
-            );
-            connection.Close();
+            string query = @"
+                SELECT 
+                    pricingPlans.planName AS [Название тарифа],
+                    COUNT(DISTINCT contract.clientIdFk) AS [Число клиентов],
+                    ISNULL(SUM(
+                        (contract.contractLong / 12) * pricingPlans.planPricePerYear + 
+                        (contract.contractLong % 12) * pricingPlans.planPricePerMonth
+                    ), 0) AS [Общая прибыль]
+                FROM pricingPlans
+                LEFT JOIN contract ON pricingPlans.pricingPlanId = contract.pricingPlanIdFk
+                LEFT JOIN client ON contract.clientIdFk = client.clientId
+                WHERE client.age = @Age
+                GROUP BY pricingPlans.planName, pricingPlans.pricingPlanId
+                ORDER BY pricingPlans.pricingPlanId";
+
+            // Открывать соединение вручную не нужно при использовании SqlDataAdapter
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            SqlCommand command = new SqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Age", age);
+            adapter.SelectCommand = command;
+
             return adapter;
         }
+
 
         public SqlDataAdapter setWordReportData()
         {
@@ -270,5 +308,43 @@ namespace lab10_telephoneOperator
             connection.Close();
             return adapter;
         }
+
+        private void ExportDataTableToWord(System.Data.DataTable dataTable)
+        {
+            if (dataTable == null || dataTable.Rows.Count == 0)
+            {
+                MessageBox.Show("Нет данных для экспорта.");
+                return;
+            }
+
+            var wordApp = new Microsoft.Office.Interop.Word.Application();
+            wordApp.Visible = true;
+
+            var doc = wordApp.Documents.Add();
+            var para = doc.Content.Paragraphs.Add();
+            para.Range.Text = "Отчет по заключенным договорам";
+            para.Range.InsertParagraphAfter();
+
+            var table = doc.Tables.Add(doc.Bookmarks.get_Item("\\endofdoc").Range,
+                                       dataTable.Rows.Count + 1, dataTable.Columns.Count);
+            table.Borders.Enable = 1;
+
+            // Заголовки
+            for (int i = 0; i < dataTable.Columns.Count; i++)
+            {
+                table.Cell(1, i + 1).Range.Text = dataTable.Columns[i].ColumnName;
+                table.Cell(1, i + 1).Range.Bold = 1;
+            }
+
+            // Данные
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                for (int j = 0; j < dataTable.Columns.Count; j++)
+                {
+                    table.Cell(i + 2, j + 1).Range.Text = dataTable.Rows[i][j]?.ToString();
+                }
+            }
+        }
+
     }
 }

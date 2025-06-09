@@ -44,12 +44,12 @@
             this.surnameTextBox = new System.Windows.Forms.TextBox();
             this.surnameLabel = new System.Windows.Forms.Label();
             this.clientData = new System.Windows.Forms.DataGridView();
-            this.Report = new System.Windows.Forms.TabPage();
-            this.generateReport = new System.Windows.Forms.Button();
-            this.updateTable = new System.Windows.Forms.Button();
-            this.reportInformation = new System.Windows.Forms.DataGridView();
             this.service = new System.Windows.Forms.TabPage();
-            this.contractForm = new System.Windows.Forms.TabPage();
+            this.planLong = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
+            this.planComboBox = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -64,6 +64,8 @@
             this.surnameTextBox2 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.contractTable = new System.Windows.Forms.DataGridView();
+            this.contractForm = new System.Windows.Forms.TabPage();
+            this.pricePerYear = new System.Windows.Forms.TextBox();
             this.deletePlane = new System.Windows.Forms.Button();
             this.ChangePlane = new System.Windows.Forms.Button();
             this.addPlane = new System.Windows.Forms.Button();
@@ -75,22 +77,26 @@
             this.planNameTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.planeGrid = new System.Windows.Forms.DataGridView();
-            this.label11 = new System.Windows.Forms.Label();
-            this.planComboBox = new System.Windows.Forms.ComboBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label12 = new System.Windows.Forms.Label();
-            this.planLong = new System.Windows.Forms.NumericUpDown();
-            this.pricePerYear = new System.Windows.Forms.TextBox();
+            this.Report = new System.Windows.Forms.TabPage();
+            this.generateReport = new System.Windows.Forms.Button();
+            this.updateTable = new System.Windows.Forms.Button();
+            this.reportInformation = new System.Windows.Forms.DataGridView();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.tabControl1.SuspendLayout();
             this.clientInfo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clientData)).BeginInit();
+            this.service.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.planLong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contractTable)).BeginInit();
+            this.contractForm.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.planeGrid)).BeginInit();
             this.Report.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.reportInformation)).BeginInit();
-            this.service.SuspendLayout();
-            this.contractForm.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contractTable)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.planeGrid)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.planLong)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -252,47 +258,6 @@
             this.clientData.Size = new System.Drawing.Size(1355, 412);
             this.clientData.TabIndex = 0;
             // 
-            // Report
-            // 
-            this.Report.Controls.Add(this.generateReport);
-            this.Report.Controls.Add(this.updateTable);
-            this.Report.Controls.Add(this.reportInformation);
-            this.Report.Location = new System.Drawing.Point(4, 22);
-            this.Report.Name = "Report";
-            this.Report.Size = new System.Drawing.Size(1609, 424);
-            this.Report.TabIndex = 2;
-            this.Report.Text = "Report";
-            this.Report.UseVisualStyleBackColor = true;
-            this.Report.Click += new System.EventHandler(this.tabPage1_Click);
-            // 
-            // generateReport
-            // 
-            this.generateReport.Location = new System.Drawing.Point(8, 216);
-            this.generateReport.Name = "generateReport";
-            this.generateReport.Size = new System.Drawing.Size(270, 38);
-            this.generateReport.TabIndex = 2;
-            this.generateReport.Text = "Создать отчет";
-            this.generateReport.UseVisualStyleBackColor = true;
-            this.generateReport.Click += new System.EventHandler(this.button2_Click_1);
-            // 
-            // updateTable
-            // 
-            this.updateTable.Location = new System.Drawing.Point(8, 121);
-            this.updateTable.Name = "updateTable";
-            this.updateTable.Size = new System.Drawing.Size(270, 38);
-            this.updateTable.TabIndex = 1;
-            this.updateTable.Text = "Обновить данные в таблице";
-            this.updateTable.UseVisualStyleBackColor = true;
-            this.updateTable.Click += new System.EventHandler(this.updateTable_Click);
-            // 
-            // reportInformation
-            // 
-            this.reportInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.reportInformation.Location = new System.Drawing.Point(284, 3);
-            this.reportInformation.Name = "reportInformation";
-            this.reportInformation.Size = new System.Drawing.Size(1317, 413);
-            this.reportInformation.TabIndex = 0;
-            // 
             // service
             // 
             this.service.Controls.Add(this.planLong);
@@ -322,26 +287,48 @@
             this.service.UseVisualStyleBackColor = true;
             this.service.Click += new System.EventHandler(this.service_Click);
             // 
-            // contractForm
+            // planLong
             // 
-            this.contractForm.Controls.Add(this.pricePerYear);
-            this.contractForm.Controls.Add(this.deletePlane);
-            this.contractForm.Controls.Add(this.ChangePlane);
-            this.contractForm.Controls.Add(this.addPlane);
-            this.contractForm.Controls.Add(this.label7);
-            this.contractForm.Controls.Add(this.pricePerMonth);
-            this.contractForm.Controls.Add(this.label8);
-            this.contractForm.Controls.Add(this.planCommentTextBox);
-            this.contractForm.Controls.Add(this.label9);
-            this.contractForm.Controls.Add(this.planNameTextBox);
-            this.contractForm.Controls.Add(this.label10);
-            this.contractForm.Controls.Add(this.planeGrid);
-            this.contractForm.Location = new System.Drawing.Point(4, 22);
-            this.contractForm.Name = "contractForm";
-            this.contractForm.Size = new System.Drawing.Size(1609, 424);
-            this.contractForm.TabIndex = 4;
-            this.contractForm.Text = "tabPage4";
-            this.contractForm.UseVisualStyleBackColor = true;
+            this.planLong.Location = new System.Drawing.Point(12, 325);
+            this.planLong.Name = "planLong";
+            this.planLong.Size = new System.Drawing.Size(229, 20);
+            this.planLong.TabIndex = 35;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(9, 309);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(135, 13);
+            this.label12.TabIndex = 34;
+            this.label12.Text = "Срок договора (месяцев)";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(174, 274);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(67, 23);
+            this.button7.TabIndex = 33;
+            this.button7.Text = "info";
+            this.button7.UseVisualStyleBackColor = true;
+            // 
+            // planComboBox
+            // 
+            this.planComboBox.FormattingEnabled = true;
+            this.planComboBox.Location = new System.Drawing.Point(12, 274);
+            this.planComboBox.Name = "planComboBox";
+            this.planComboBox.Size = new System.Drawing.Size(154, 21);
+            this.planComboBox.TabIndex = 32;
+            this.planComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(9, 258);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(40, 13);
+            this.label11.TabIndex = 31;
+            this.label11.Text = "Тариф";
             // 
             // button1
             // 
@@ -473,6 +460,34 @@
             this.contractTable.TabIndex = 17;
             this.contractTable.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
+            // contractForm
+            // 
+            this.contractForm.Controls.Add(this.pricePerYear);
+            this.contractForm.Controls.Add(this.deletePlane);
+            this.contractForm.Controls.Add(this.ChangePlane);
+            this.contractForm.Controls.Add(this.addPlane);
+            this.contractForm.Controls.Add(this.label7);
+            this.contractForm.Controls.Add(this.pricePerMonth);
+            this.contractForm.Controls.Add(this.label8);
+            this.contractForm.Controls.Add(this.planCommentTextBox);
+            this.contractForm.Controls.Add(this.label9);
+            this.contractForm.Controls.Add(this.planNameTextBox);
+            this.contractForm.Controls.Add(this.label10);
+            this.contractForm.Controls.Add(this.planeGrid);
+            this.contractForm.Location = new System.Drawing.Point(4, 22);
+            this.contractForm.Name = "contractForm";
+            this.contractForm.Size = new System.Drawing.Size(1609, 424);
+            this.contractForm.TabIndex = 4;
+            this.contractForm.Text = "tabPage4";
+            this.contractForm.UseVisualStyleBackColor = true;
+            // 
+            // pricePerYear
+            // 
+            this.pricePerYear.Location = new System.Drawing.Point(12, 181);
+            this.pricePerYear.Name = "pricePerYear";
+            this.pricePerYear.Size = new System.Drawing.Size(229, 20);
+            this.pricePerYear.TabIndex = 31;
+            // 
             // deletePlane
             // 
             this.deletePlane.Location = new System.Drawing.Point(174, 372);
@@ -576,55 +591,97 @@
             this.planeGrid.TabIndex = 17;
             this.planeGrid.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
-            // label11
+            // Report
             // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(9, 258);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(40, 13);
-            this.label11.TabIndex = 31;
-            this.label11.Text = "Тариф";
+            this.Report.Controls.Add(this.dateTimePicker1);
+            this.Report.Controls.Add(this.button5);
+            this.Report.Controls.Add(this.button4);
+            this.Report.Controls.Add(this.label6);
+            this.Report.Controls.Add(this.trackBar1);
+            this.Report.Controls.Add(this.generateReport);
+            this.Report.Controls.Add(this.updateTable);
+            this.Report.Controls.Add(this.reportInformation);
+            this.Report.Location = new System.Drawing.Point(4, 22);
+            this.Report.Name = "Report";
+            this.Report.Size = new System.Drawing.Size(1609, 424);
+            this.Report.TabIndex = 2;
+            this.Report.Text = "Report";
+            this.Report.UseVisualStyleBackColor = true;
+            this.Report.Click += new System.EventHandler(this.tabPage1_Click);
             // 
-            // planComboBox
+            // generateReport
             // 
-            this.planComboBox.FormattingEnabled = true;
-            this.planComboBox.Location = new System.Drawing.Point(12, 274);
-            this.planComboBox.Name = "planComboBox";
-            this.planComboBox.Size = new System.Drawing.Size(154, 21);
-            this.planComboBox.TabIndex = 32;
-            this.planComboBox.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            this.generateReport.Location = new System.Drawing.Point(8, 269);
+            this.generateReport.Name = "generateReport";
+            this.generateReport.Size = new System.Drawing.Size(270, 38);
+            this.generateReport.TabIndex = 2;
+            this.generateReport.Text = "Создать отчет Excel";
+            this.generateReport.UseVisualStyleBackColor = true;
+            this.generateReport.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // button7
+            // updateTable
             // 
-            this.button7.Location = new System.Drawing.Point(174, 274);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(67, 23);
-            this.button7.TabIndex = 33;
-            this.button7.Text = "info";
-            this.button7.UseVisualStyleBackColor = true;
+            this.updateTable.Location = new System.Drawing.Point(8, 15);
+            this.updateTable.Name = "updateTable";
+            this.updateTable.Size = new System.Drawing.Size(270, 38);
+            this.updateTable.TabIndex = 1;
+            this.updateTable.Text = "Обновить данные в таблице для Excel отчета";
+            this.updateTable.UseVisualStyleBackColor = true;
+            this.updateTable.Click += new System.EventHandler(this.updateTable_Click);
             // 
-            // label12
+            // reportInformation
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(9, 309);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(135, 13);
-            this.label12.TabIndex = 34;
-            this.label12.Text = "Срок договора (месяцев)";
+            this.reportInformation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.reportInformation.Location = new System.Drawing.Point(284, 3);
+            this.reportInformation.Name = "reportInformation";
+            this.reportInformation.Size = new System.Drawing.Size(1317, 348);
+            this.reportInformation.TabIndex = 0;
+            this.reportInformation.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.reportInformation_CellContentClick);
             // 
-            // planLong
+            // trackBar1
             // 
-            this.planLong.Location = new System.Drawing.Point(12, 325);
-            this.planLong.Name = "planLong";
-            this.planLong.Size = new System.Drawing.Size(229, 20);
-            this.planLong.TabIndex = 35;
+            this.trackBar1.Location = new System.Drawing.Point(3, 376);
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(1598, 45);
+            this.trackBar1.TabIndex = 3;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
-            // pricePerYear
+            // label6
             // 
-            this.pricePerYear.Location = new System.Drawing.Point(12, 181);
-            this.pricePerYear.Name = "pricePerYear";
-            this.pricePerYear.Size = new System.Drawing.Size(229, 20);
-            this.pricePerYear.TabIndex = 31;
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label6.Location = new System.Drawing.Point(631, 354);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(167, 20);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Возраст клиента до:";
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(8, 313);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(270, 38);
+            this.button4.TabIndex = 5;
+            this.button4.Text = "Создать отчет Word";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click_1);
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(8, 59);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(270, 38);
+            this.button5.TabIndex = 6;
+            this.button5.Text = "Обновить данные в таблице для Word отчета";
+            this.button5.UseVisualStyleBackColor = true;
+            this.button5.Click += new System.EventHandler(this.button5_Click_1);
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(8, 172);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(270, 20);
+            this.dateTimePicker1.TabIndex = 7;
             // 
             // Form1
             // 
@@ -638,15 +695,17 @@
             this.clientInfo.ResumeLayout(false);
             this.clientInfo.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.clientData)).EndInit();
-            this.Report.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.reportInformation)).EndInit();
             this.service.ResumeLayout(false);
             this.service.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.planLong)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.contractTable)).EndInit();
             this.contractForm.ResumeLayout(false);
             this.contractForm.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.contractTable)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.planeGrid)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.planLong)).EndInit();
+            this.Report.ResumeLayout(false);
+            this.Report.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.reportInformation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -706,6 +765,11 @@
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.NumericUpDown planLong;
         private System.Windows.Forms.TextBox pricePerYear;
+        private System.Windows.Forms.TrackBar trackBar1;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
     }
 }
 

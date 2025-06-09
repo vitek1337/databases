@@ -1,0 +1,101 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="kpCRM.registrationServices">
+    <Position X="13" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAACQAAgACAgAAAAACAAAAQAAAAYAAEAAAAI=</HashCode>
+      <FileName>registrationServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.dataReading">
+    <Position X="13" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAIAAAAAAAAAgAAAAAAAAAAAAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>registrationServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.loginServices">
+    <Position X="13" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAAAAAAAgAAAAAAAAAAAIAAAAAAAIAAAgAAAA=</HashCode>
+      <FileName>registrationServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.loadDbServices">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>iARAAUQAYIIABCgEAGICAEAACAAgSIAAgAQErKkCQAQ=</HashCode>
+      <FileName>registrationServices.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.login">
+    <Position X="3.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACEAAACAAAAAAACCAAAACAAAYACAAAHAAAIAAAIA=</HashCode>
+      <FileName>login.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="userPanel" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kpCRM.registration">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>oBAAAEAAADAgABAAAGiAAAACAQIIJACQAEIAACAAEgg=</HashCode>
+      <FileName>registration.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="login" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kpCRM.userPanel">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <AssociationLine Name="execution_items" Type="kpCRM.execution_items" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="8" Y="10.969" />
+        <Point X="17.75" Y="10.969" />
+        <Point X="17.75" Y="9.046" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>96EACErMQHk1CNCfpsqCSlQSI/t7VIMKkfwPIKsHhKQ=</HashCode>
+      <FileName>userPanel.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="fastQuerryForm" />
+      <Property Name="loadDbServices1" />
+      <Property Name="IdNameItem" />
+      <Property Name="executionChangeForm" />
+      <Property Name="execution_items" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="kpCRM.execution_items">
+    <Position X="17" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>userPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="IdNameItem">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAEAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>userPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.fastQuerryForm">
+    <Position X="3.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAAACAAABQAAACQAAECAAAIAAAAAECAAAQAAAQ=</HashCode>
+      <FileName>fastQuerryForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="kpCRM.executionChangeForm">
+    <Position X="17" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ACAAAAAAACAQABASBBCCACACABAYAAAAAQAAAAAAAAA=</HashCode>
+      <FileName>executionChangeForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
